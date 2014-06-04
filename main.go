@@ -14,8 +14,11 @@ import (
 
 const (
 	//	requestAddrPattern string = "http://translate.google.com/translate_a/t?client=x&text=%s&hl=en&sl=%s&tl=%s"
-	requestAddrPattern string = "http://74.125.235.201/translate_a/t?client=x&text=%s&hl=en&sl=%s&tl=%s"
-	referer            string = "http://www.google.com"
+	//requestAddrPattern string = "http://74.125.235.201/translate_a/t?client=x&text=%s&hl=en&sl=%s&tl=%s"
+	httpP              string = "http://"
+	defaultAddr        string = "translate.google.com"
+	requestAddrPattern string = "/translate_a/t?client=x&text=%s&hl=en&sl=%s&tl=%s"
+	referer            string = "http://translate.google.com"
 	userAgent          string = "Mozilla/5.0 (compatible; Googlebot/2.1)"
 	language           string = "en-us,en;q=0.5"
 	charset            string = "ISO-8859-1,utf-8;q=0.7,*;q=0.7"
@@ -48,10 +51,15 @@ func main() {
 	if gtTo == "" {
 		gtTo = "zh-CN"
 	}
+	gtAddr := os.ExpandEnv("$GTADDR")
+	if gtAddr == "" {
+		gtAddr = defaultAddr
+	}
+	requestAddrPtn := httpP + gtAddr + requestAddrPattern
 	text := getText()
 	replWhiteSpace := regexp.MustCompile("[ \n\t]")
 	text = replWhiteSpace.ReplaceAllString(text, "%20")
-	requestAddr := fmt.Sprintf(requestAddrPattern, text, gtFrom, gtTo)
+	requestAddr := fmt.Sprintf(requestAddrPtn, text, gtFrom, gtTo)
 	reqst, _ := http.NewRequest("GET", requestAddr, nil)
 	reqst.Header.Add("Referer", referer)
 	reqst.Header.Add("User-Agent", userAgent)

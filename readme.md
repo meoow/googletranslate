@@ -90,7 +90,21 @@ $ GTDICT=1 ./gt fire
 
 解释的顺序是按照其常用度排序。
 
-##多国语言缩写代码：
+---
+##4. 支持自定义Google Translate的地址
+默认是translate.google.com
+但是鉴于最近GƒW的问题，所以可以通过环境变量GTADDR自定义地址（IP）
+
+```
+export GTADDR=111.111.111.111 #自定义的地址
+got I am the God of War
+我是战神
+
+```
+具体用什么地址，可以自行搜索通过HOSTS文件访问谷歌服务的相关内容，里面的IP地址可以用在这里
+
+##多国语言缩写代码： 
+
 
 |Code      | Language |
 |:---------|:--------:|
