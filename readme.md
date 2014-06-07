@@ -11,7 +11,7 @@ $ ./gt I don\'t want to set the world on fire.
 >我不想让世界上的火。
 
 ####Default is AUTO -> Chinese, but any two language combinations supported by Google Translate can be used：
-* *you need to provide two environment variables: **GTF**(source) and **GTT**(target)*
+* _you need to provide two environment variables: **GTF**(source) and **GTT**(target)_
 
 ```
 # temperary (Chinese -> Japanese)
@@ -67,7 +67,7 @@ set gtt=ja
 gt.exe %*
 popd
 ```  
-保存为bat文件，例如gt.bat，和gt.exe放在相同目录
+* _保存为bat文件，例如gt.bat，和gt.exe放在相同目录_
 
 ```
 > gt.bat 天上天下，唯我独尊
