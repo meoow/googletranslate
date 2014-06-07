@@ -4,19 +4,19 @@ import "os"
 
 //import "regexp"
 import "strings"
+import "net/url"
 
 func popclip() string {
-	//	env := os.Environ()
-	//	popclipPattern := regexp.MustCompile("^POPCLIP_TEXT=(.*)$")
-	//	for _, kw := range env {
-	//		if popclipPattern.MatchString(kw) {
-	//			return popclipPattern.FindStringSubmatch(kw)[1]
-	//		}
-	//	}
-	return os.ExpandEnv("$POPCLIP_TEXT")
+	var popcliptext string
+	if i := os.ExpandEnv("$POPCLIP_URLENCODED_TEXT"); i != "" {
+		popcliptext = i
+	} else if i := os.ExpandEnv("$POPCLIP_TEXT"); i != "" {
+		popcliptext = url.QueryEscape(i)
+	}
+	return popcliptext
 }
 func commandline() string {
-	return strings.Join(os.Args[1:], " ")
+	return url.QueryEscape(strings.Join(os.Args[1:], " "))
 }
 
 func getText() string {

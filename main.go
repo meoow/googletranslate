@@ -7,9 +7,9 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"regexp"
 	"strings"
 	//	"unicode/utf8"
+	//"regexp"
 )
 
 const (
@@ -57,8 +57,6 @@ func main() {
 	}
 	requestAddrPtn := httpP + gtAddr + requestAddrPattern
 	text := getText()
-	replWhiteSpace := regexp.MustCompile("[ \n\t]")
-	text = replWhiteSpace.ReplaceAllString(text, "%20")
 	requestAddr := fmt.Sprintf(requestAddrPtn, text, gtFrom, gtTo)
 	reqst, _ := http.NewRequest("GET", requestAddr, nil)
 	reqst.Header.Add("Referer", referer)
