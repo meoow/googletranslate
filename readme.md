@@ -1,8 +1,5 @@
-#使用说明
-
-
-##使用方法
-##1. 在类UNIX系统下(Linux, Mac OSX, BSD)，打开终端:
+#Usage
+##1. On UNIX(Linux, OS X), open terminal:
 ```
 $ ./gt too much shit on the bed
 ```
@@ -13,11 +10,11 @@ $ ./gt I don\'t want to set the world on fire.
 ```
 >我不想让世界上的火。
 
-####支持其他任意两种语言翻译：
-* _需要给定环境变量**GTF**(源语言)和**GTT**(目标语言)_  
-* _例如: GTF=zh-CN (zh-CN是汉语简体所写代码)_
+####Default is AUTO -> Chinese, but any two language combinations supported by Google Translate can be used：
+* *you need to provide two environment variables: **GTF**(source) and **GTT**(target)*
 
 ```
+# temperary (Chinese -> Japanese)
 $ GTF=zh GTT=ja ./gt 只有三喵神才是宇宙真神
 ```
 >わずか3ニャー神は真の神の世界である
@@ -27,8 +24,9 @@ $ GTF=zh GTT=en ./gt 微软就是只猪队友
 ```
 >Microsoft is pig teammate
 
-####环境变量也可以单独设置，该设置会一直在窗口关闭前一直生效，而前一种方法只单次命令有效:
+
 ```
+# exported (Chinese Simplified -> Polish)
 $ export GTF=zh-CN
 $ export GTT=pl
 $ ./gt 三喵神万岁
@@ -36,19 +34,18 @@ $ ./gt 三喵神万岁
 >Trzy meow Bóg Viva
 
 
-##2. 在windows系统下，打开命令提示符:
+##2. On Windows, open CMD:
 `> gt.exe too much shit on the bed`
 >太多狗屎上了床
 
-####汉译英(windows的cmd不支持临时环境变量，只能预先单独设置)
 ```
+:: use set to assign GTF and GTT
 > set gtf=zh
 > set gtt=en
 > gt.exe 微软就是只猪队友
 ```
 >Microsoft is pig teammate
 
-####汉译日
 ```
 > set gtf=zh
 > set gtt=ja
@@ -61,7 +58,7 @@ $ ./gt 三喵神万岁
 ```
 >打たれた
 
-####由于windows单独设置单独设置变量比较麻烦，可以使用批处理
+####you could put them in a batch file
 ```
 @echo off
 pushd %~dp0
@@ -78,8 +75,9 @@ popd
 > Tenjho、傲慢
 
 ---
-##3. 使用Google词典
-如果GTDICT环境变量存在并且是非空值，并且只提供一个单词的情况下，会使用谷歌词典，而非句子翻译。
+##3. Google Dictionary
+
+When environment variable **GTDICT** exists and not empty, and you are passing only one word, it wil invoke google dictionay。
 
 ```
 $ GTDICT=1 ./gt fire
@@ -91,12 +89,12 @@ $ GTDICT=1 ./gt fire
 解释的顺序是按照其常用度排序。
 
 ---
-##4. 支持自定义Google Translate的地址
-默认是translate.google.com
-但是鉴于最近GƒW的问题，所以可以通过环境变量GTADDR自定义地址（IP）
+##4. Customize the address for querying Google Translate
+Default address is **translate.google.com**, but you can use a specific ip address instead, due to recent restricted access to google services.
 
 ```
-export GTADDR=111.111.111.111 #自定义的地址
+# assign GTADDR to your own ip
+export GTADDR=111.111.111.111
 got I am the God of War
 我是战神
 
