@@ -1,11 +1,11 @@
 #Usage
 ##1. On UNIX(Linux, OS X), open terminal:
-```
+```sh
 $ ./gt too much shit on the bed
 ```
 >太多狗屎上了床
 
-```
+```sh
 $ ./gt I don\'t want to set the world on fire.
 ```
 >我不想让世界上的火。
@@ -13,24 +13,24 @@ $ ./gt I don\'t want to set the world on fire.
 ####Default is AUTO -> Chinese, but any two language combinations supported by Google Translate can be used：
 * _you need to provide two environment variables: **GTF**(source) and **GTT**(target)_
 
-```
+```sh
 # temperary (Chinese -> Japanese)
 $ GTF=zh GTT=ja ./gt 只有三喵神才是宇宙真神
 ```
 >わずか3ニャー神は真の神の世界である
 
-```
+```sh
 $ GTF=zh GTT=en ./gt 微软就是只猪队友
 ```
 >Microsoft is pig teammate
 
 
-```
+```sh
 # exported (Chinese Simplified -> Polish)
 $ export GTF=zh-CN
 $ export GTT=pl
 $ ./gt 三喵神万岁
-```  
+```
 >Trzy meow Bóg Viva
 
 
@@ -66,7 +66,7 @@ set gtf=zh
 set gtt=ja
 gt.exe %*
 popd
-```  
+```
 * _保存为bat文件，例如gt.bat，和gt.exe放在相同目录_
 
 ```
@@ -79,7 +79,7 @@ popd
 
 When environment variable **GTDICT** exists and not empty, and you are passing only one word, it wil invoke google dictionay。
 
-```
+```sh
 $ GTDICT=1 ./gt fire
 ```
 
@@ -92,7 +92,7 @@ $ GTDICT=1 ./gt fire
 ##4. Customize the address for querying Google Translate
 Default address is **translate.google.com**, but you can use a specific ip address instead, due to recent restricted access to google services.
 
-```
+```sh
 # assign GTADDR to your own ip
 export GTADDR=111.111.111.111
 got I am the God of War
