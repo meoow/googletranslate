@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 	//	"unicode/utf8"
@@ -42,7 +43,31 @@ type indivTerm struct {
 
 type dict []*indivTerm
 
+func init() {
+	log.SetOutput(os.Stderr)
+}
+
 func main() {
+	urltext := getText()
+	text, err := url.QueryUnescape(urltext)
+	if err != nil {
+		text = urltext
+	}
+
+	queryType := SENTENCES
+	if len(os.Args) == 2 && os.ExpandEnv("$GTDICT") != "" {
+		queryType = DICT
+	}
+
+	nodb := os.ExpandEnv("$GTNODB")
+	if nodb == "" && queryType == SENTENCES {
+		translation, err := GetTrans(text)
+		if err == nil {
+			fmt.Println(translation)
+			return
+		}
+	}
+
 	gtFrom := os.ExpandEnv("$GTF")
 	if gtFrom == "" {
 		gtFrom = "en"
@@ -56,8 +81,7 @@ func main() {
 		gtAddr = defaultAddr
 	}
 	requestAddrPtn := httpP + gtAddr + requestAddrPattern
-	text := getText()
-	requestAddr := fmt.Sprintf(requestAddrPtn, text, gtFrom, gtTo)
+	requestAddr := fmt.Sprintf(requestAddrPtn, urltext, gtFrom, gtTo)
 	reqst, _ := http.NewRequest("GET", requestAddr, nil)
 	reqst.Header.Add("Referer", referer)
 	reqst.Header.Add("User-Agent", userAgent)
@@ -83,11 +107,15 @@ func main() {
 		log.Fatal(err)
 	}
 
-	queryType := SENTENCES
-	if len(os.Args) == 2 && os.ExpandEnv("$GTDICT") != "" {
-		queryType = DICT
+	translation := parseJson(resultJson, queryType)
+
+	if nodb == "" && queryType == SENTENCES && translation != "" {
+		err = SaveTrans(text, translation)
+		if err != nil {
+			log.Println(err)
+		}
 	}
-	fmt.Printf("%s\n", parseJson(resultJson, queryType))
+	fmt.Printf("%s\n", translation)
 }
 
 func parseJson(js map[string]interface{}, catalog uint8) string {
